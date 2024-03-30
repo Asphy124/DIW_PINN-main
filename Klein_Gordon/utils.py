@@ -93,7 +93,7 @@ class torchIWT(torch.nn.Module):
 
 
     def get_Iwt2d(self, img, xc, xr):
-        approx, indicies = self.get_Iwt_l2d(img, xc, xr, self.j0)  # 逼近结果
+        approx, indicies = self.get_Iwt_l2d(img, xc, xr, self.j0)
         if self.J <= self.j0:
             return approx, indicies
         for j in range(self.j0, self.J):

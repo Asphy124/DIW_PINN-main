@@ -16,18 +16,18 @@ class torchIWT(torch.nn.Module):
 
     def get_phi(self, x):
 
-        # out = torch.zeros_like(x)
-        # out[(x >= -1) & (x < 0)] = x[(x >= -1) & (x < 0)] + 1
-        # out[(x >= 0) & (x <= 1)] = 1 - x[(x >= 0) & (x <= 1)]
-        # return out
-
-        mm = (3.2**2) * (1**2)
-        t = torch.pi * x / 1
-        ss = torch.sin(t)
-        ee = torch.exp(-torch.square(x) / (2 * mm))
-        out = torch.divide((ss * ee), t)
-        out[torch.where(t==0.)] = 1.
+        out = torch.zeros_like(x)
+        out[(x >= -1) & (x < 0)] = x[(x >= -1) & (x < 0)] + 1
+        out[(x >= 0) & (x <= 1)] = 1 - x[(x >= 0) & (x <= 1)]
         return out
+
+        # mm = (3.2**2) * (1**2)
+        # t = torch.pi * x / 1
+        # ss = torch.sin(t)
+        # ee = torch.exp(-torch.square(x) / (2 * mm))
+        # out = torch.divide((ss * ee), t)
+        # out[torch.where(t==0.)] = 1.
+        # return out
 
 
     def get_phi2d(self, xc, xr, block_size=10):
@@ -94,7 +94,7 @@ class torchIWT(torch.nn.Module):
 
 
     def get_Iwt2d(self, img, xc, xr):
-        approx, indicies = self.get_Iwt_l2d(img, xc, xr, self.j0)  # 逼近结果
+        approx, indicies = self.get_Iwt_l2d(img, xc, xr, self.j0)
         if self.J <= self.j0:
             return approx, indicies
         for j in range(self.j0, self.J):
